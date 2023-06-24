@@ -26,7 +26,7 @@ exec --no-startup-id dex --autostart --environment i3
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+exec --no-startup-id xss-lock --transfer-sleep-lock -- ~/.config/i3lock-color/lock.sh --nofork
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -203,7 +203,7 @@ bar {
     tray_output none
 	status_command ~/.config/i3/bumblebee-status/bumblebee-status \
         -m battery bluetooth2 datetime git memory disk xrandr brightness nvidiagpu shortcut pomodoro system \
-        -p shortcut.cmd='firefox https://chat.openai.com/' shortcut.label='ChatGPT' \
+        -p memory.format='{used}/{total} ({percent:05.02f}%)' shortcut.cmd='rogauracore brightness 0' shortcut.label='Keyboard Light' \
         -t iceberg-dark-powerline
         # iceberg-dark-powerline and iceberg-powerline are good alsos
         # night-powerline for simple
@@ -243,7 +243,7 @@ set $crust     #11111b
 # this is a custom config, based on above colors
 # target                 title     bg        text   indicator  border
 client.focused           $base     $lavender $base  $lavender  $base
-client.focused_inactive  $base     $flamingo $base  $flamingo  $base
+client.focused_inactive  $base     $mauve    $base  $mauve     $base
 client.unfocused         $base     $base     $text  $rosewater $base
 client.urgent            $base     $peach    $base  $overlay0  $base
 client.placeholder       $base     $base     $text  $overlay0  $base
@@ -264,7 +264,16 @@ bindsym Mod4+Ctrl+$left move workspace to output left
 # Please remove the following exec line:
 #######################################################################
 
+exec xrandr --output HDMI-A-0 --right-of eDP --mode 3840x2160
+
+exec xinput set-prop "ASUE1209:00 04F3:319F Touchpad" "libinput Tapping Enabled" 1
+
+# Screenshots
+bindsym Print exec --no-startup-id maim "/home/$USER/Pictures/$(date)"
+bindsym Shift+Print exec --no-startup-id maim --select "/home/$USER/Pictures/$(date)"
+
 # exec --no-startup-id nitrogen --set-auto ~/Pictures/ma-and-kobe.jpg --head=0 && nitrogen --set-auto ~/Pictures/ma-and-kobe.jpg --head=1
 # exec --no-startup-id nitrogen --set-zoom-fill ~/Pictures/snow-trees.jpg --head=0 && nitrogen --set-zoom-fill ~/Pictures/snow-trees.jpg --head=1
 # exec --no-startup-id nitrogen --set-zoom-fill ~/Pictures/mountains.jpeg --head=0 && nitrogen --set-zoom-fill ~/Pictures/mountains.jpeg --head=1
-exec --no-startup-id nitrogen --set-zoom-fill ~/Pictures/stream-mountain.jpg --head=0 && nitrogen --set-zoom-fill ~/Pictures/stream-mountain.jpg --head=1
+# exec --no-startup-id nitrogen --set-zoom-fill ~/Pictures/stream-mountain.jpg --head=0 && nitrogen --set-zoom-fill ~/Pictures/stream-mountain.jpg --head=1
+exec --no-starup-id nitrogen --set-color=#1e1e2e
