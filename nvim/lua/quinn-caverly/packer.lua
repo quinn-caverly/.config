@@ -25,7 +25,7 @@ return require('packer').startup(function(use)
         "folke/trouble.nvim",
         config = function()
             require("trouble").setup {
-                icons = false,
+                icons = true,
                 -- your configuration comes here
                 -- or leave it empty to use the default settings
                 -- refer to the configuration section below
@@ -33,6 +33,17 @@ return require('packer').startup(function(use)
         end
     })
 
+    use({
+        "jackMort/ChatGPT.nvim",
+        config = function()
+            require("chatgpt").setup()
+        end,
+        requires = {
+            "MunifTanjim/nui.nvim",
+            "nvim-lua/plenary.nvim",
+            "nvim-telescope/telescope.nvim"
+        }
+    })
 
     use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
     use("nvim-treesitter/playground")
@@ -41,7 +52,24 @@ return require('packer').startup(function(use)
     use("mbbill/undotree")
     use("tpope/vim-fugitive")
     use("nvim-treesitter/nvim-treesitter-context")
-    use("ThePrimeagen/vim-be-good")
+
+    -- shows lightbulb when code action available
+    use({
+        'kosayoda/nvim-lightbulb',
+        requires = 'antoinemadec/FixCursorHold.nvim',
+    })
+
+    -- Regex explaining plugin
+    use('tomiis4/Hypersonic.nvim')
+
+    -- Neovim screensaver
+    use({
+        "folke/drop.nvim",
+        event = "VimEnter",
+    })
+
+    use({"ggandor/leap.nvim"})
+    require('leap').add_default_mappings()
 
     use {
         'VonHeikemen/lsp-zero.nvim',
@@ -67,7 +95,6 @@ return require('packer').startup(function(use)
     }
 
     use("folke/zen-mode.nvim")
-    --use("github/copilot.vim")
     use("laytan/cloak.nvim")
 
     use({
@@ -75,5 +102,12 @@ return require('packer').startup(function(use)
         cmd = 'CodeActionMenu',
     })
 
+    -- debugging
     use('mfussenegger/nvim-dap')
+    use('leoluz/nvim-dap-go')
+    use { 'rcarriga/nvim-dap-ui', as = "dapui" }
+    use('theHamsta/nvim-dap-virtual-text')
+    use('nvim-telescope/telescope-dap.nvim')
+
+    use('m4xshen/autoclose.nvim')
 end)

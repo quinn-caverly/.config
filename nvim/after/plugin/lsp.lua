@@ -6,6 +6,7 @@ lsp.ensure_installed({
   'tsserver',
   'rust_analyzer',
   'clangd',
+  'tailwindcss',
 })
 
 require'lspconfig'.lua_ls.setup {
@@ -29,6 +30,32 @@ require'lspconfig'.lua_ls.setup {
       },
     },
   },
+}
+
+require'lspconfig'.tailwindcss.setup {
+  filetypes = {
+    "css",
+    "scss",
+    "sass",
+    "postcss",
+    "html",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "svelte",
+    "vue",
+    "rust",
+  },
+  init_options = {
+    -- There you can set languages to be considered as different ones by tailwind lsp I guess same as includeLanguages in VSCod
+    userLanguages = {
+      rust = "html",
+    },
+  },
+  -- Here If any of files from list will exist tailwind lsp will activate.
+  --root_dir = require 'lspconfig'.util.root_pattern('tailwind.config.js', 'tailwind.config.ts', 'postcss.config.js',
+  --  'postcss.config.ts', 'windi.config.ts'),
 }
 
 lsp.set_preferences({
